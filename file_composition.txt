@@ -1,0 +1,11 @@
+studu_elasticsearch/
+│
+├── docker-compose.yml
+├── elasticsearch/
+│   └── Dockerfile
+├── webapp/
+│   ├── app.py  # Flaskアプリのメインコード
+│   ├── requirements.txt  # FlaskとElasticsearchパッケージ
+│   ├── Dockerfile
+│   └── templates/
+│       └── index.html  # 検索画面

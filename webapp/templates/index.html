@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta hane="viewport" content="width=devide-width, initial-scale=1.0">
+    <title>記事検索</title>
+</head>
+<body>
+    <h1>記事検索</h1>
+    <form method="POST">
+        <label for="start_date">発表日（開始）：</label>
+        <input type="date" id="start_date" name="start_date">
+
+        <label for="end_date">発表日（終了）：</label>
+        <input type="date" id="end_date" name="end_date"><br><br>
+
+        <label for="category">カテゴリ：</label>
+        <select id="category" name="category">
+            <option value="">ーー選択してくださいーー</option>
+            {% for category in categories %}
+            <option value="{{ category }}">{{ category }}</option>
+            {% endfor %}
+        </select><br><br>
+
+        <label for="keyword">キーワード：</label>
+        <input type="text" id="keyword" name="keyword"><br><br>
+
+        <button type="submit">検索</button>
+    </form>
+
+    <h2>検索結果</h2>
+    {% if results %}
+        <table border="1">
+            <tr>
+                <th>タイトル</th>
+                <th>カテゴリ</th>
+                <th>発表日</th>
+                <th>本文</th>
+            </tr>
+            {% for result in results %}
+            <tr>
+                <td>{{ result._source.title }}</td>
+                <td>{{ result._source.category }}</td>
+                <td>{{ result._source.published_at }}</td>
+                <td>{{ result._source.content[:500] }}...</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>検索結果がありません。</p>
+    {% endif %}
+</body>
+</html>

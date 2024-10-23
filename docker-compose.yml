@@ -1,0 +1,25 @@
+version: '3.8'
+services:
+  elasticsearch:
+    build: ./elasticsearch
+    container_name: elasticsearch
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+      - "ES_JAVA_OPTS=-Xms512m -Xms512m"
+    ports:
+      - "9200:9200"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+  webapp:
+    build: ./webapp
+    container_name: webapp
+    ports:
+      - "5000:5000"
+    depends_on:
+      - elasticsearch
+
+volumes:
+  es_data:
+    driver: local
+
